@@ -11,7 +11,8 @@ const data = {
     },
     status: {
         internet: false,
-        transmitter: false
+        transmitter: false,
+        pump: 1
     },
     cpu: {
         cpuUsage: 0,
