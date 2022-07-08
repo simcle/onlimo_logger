@@ -19,7 +19,8 @@ const data = {
         cpuFree: 0,
         totalmem: 0,
         freemem: 0
-    }
+    },
+    stationId: ''
 }
 
 module.exports = data

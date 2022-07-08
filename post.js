@@ -55,7 +55,6 @@ setInterval(() => {
         isOnline()
         .then((res) => {
             if(res) {
-                console.log(data);
                 controller.onLine(data, onlimo)
             } else {
                 controller.offLine(data)
