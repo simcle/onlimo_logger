@@ -4,11 +4,10 @@ const baseURLDLH = process.env.BASE_URL_DLH
 const baseURLKLHK = process.env.API_KLHK
 const axios = require('axios');
 const klhk = process.env.KLHK;
-const Gpio = require('onoff').Gpio;
 const watcher = require('./watcher');
 
-// const pump = new Gpio(26, 'out')
-// pump.writeSync(1)
+const pump = require('./gpio').pump;
+pump.writeSync(1)
 
 exports.onLine = (logger, onlimo) => {
     axios.post(baseURLDLH+'/auth/station', {
@@ -113,7 +112,7 @@ exports.offLine = (logger) => {
 }
 
 exports.powerPump = (req) => {
-    //pump.writeSync(req)
+    pump.writeSync(req)
     watcher.status.pump = req
 }
 
