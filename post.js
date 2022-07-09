@@ -1,8 +1,9 @@
 require('dotenv').config();
 const isOnline = require('is-online');
 const controller = require('./controller')
-
+const pump = require('./gpio').pump;
 const logger = require('./logger');
+const watcher = require('./watcher');
 const modbus = logger.modbus
 setInterval(() => {
     const date = new Date()
@@ -52,7 +53,8 @@ setInterval(() => {
     }
     // send data to controller in hour
     if(mm == 59) {
-
+        pump.writeSync(0)
+        watcher.status.pump = 0
     }
     if (mm == 00 && ss == 00) {
         isOnline()

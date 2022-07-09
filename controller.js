@@ -20,7 +20,6 @@ exports.onLine = (logger, onlimo) => {
                 db.all (sql, (err, data) => {
                     if(err) throw err
                     if(data.length > 0) {
-                        console.log(data.length);
                         (async () => {
                             for(let logger of data) {
 
@@ -54,30 +53,36 @@ exports.onLine = (logger, onlimo) => {
                                 
                                 
                             }
-                        })();
-                        // TO API SERVER DLH
-                        axios.post(baseURLDLH+'/logger/modbus', logger, {
-                            headers: {
-                                Authorization: `Bearer ${res.data.token}`
+                            // TO API SERVER DLH
+                            await axios.post(baseURLDLH+'/logger/modbus', logger, {
+                                headers: {
+                                    Authorization: `Bearer ${res.data.token}`
+                                }
+                            })
+    
+                            // TO API SERVER KLHK
+                            if(klhk == 'true') {
+                                await axios.post(baseURLKLHK, onlimo)
                             }
-                        })
-
-                        // TO API SERVER KLHK
-                        if(klhk == 'true') {
-                            axios.post(baseURLKLHK, onlimo)
-                        }
-                       
-
-                        db.serialize(function () {
-                            let sql = 'DELETE FROM logger'
-                            db.run(sql)
-                        })
+                           
+    
+                            db.serialize(function () {
+                                let sql = 'DELETE FROM logger'
+                                db.run(sql)
+                            })
+                            pump.writeSync(1)
+                            watcher.status.pump = 1
+                        })();
                     } else {
                         // TO API SERVER DLH
                         axios.post(baseURLDLH+'/logger/modbus', logger, {
                             headers: {
                                 Authorization: `Bearer ${res.data.token}`
                             }
+                        })
+                        .then(() => {
+                            pump.writeSync(1)
+                            watcher.status.pump = 1
                         })
 
                         // TO API SERVER KLHK
