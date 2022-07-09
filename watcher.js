@@ -7,7 +7,7 @@ const db = require('./rtb');
 const loggerData = db.child(stationId)
 const watcher = onChange(logger, () => {
     logger.modbus.addedAt = new Date().toString()
-    loggerData.set(logger)
+    loggerData.child('status').set(logger.status)
 })
 
 module.exports = watcher;

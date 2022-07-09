@@ -51,6 +51,9 @@ setInterval(() => {
         apisecreet: process.env.APISECREET
     }
     // send data to controller in hour
+    if(mm == 59) {
+
+    }
     if (mm == 00 && ss == 00) {
         isOnline()
         .then((res) => {

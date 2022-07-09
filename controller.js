@@ -3,7 +3,13 @@ const db = require('./config');
 const baseURLDLH = process.env.BASE_URL_DLH
 const baseURLKLHK = process.env.API_KLHK
 const axios = require('axios');
-const klhk = process.env.KLHK
+const klhk = process.env.KLHK;
+const Gpio = require('onoff').Gpio;
+const watcher = require('./watcher');
+
+// const pump = new Gpio(26, 'out')
+// pump.writeSync(1)
+
 exports.onLine = (logger, onlimo) => {
     axios.post(baseURLDLH+'/auth/station', {
         stationId: process.env.STATION_ID
@@ -41,7 +47,7 @@ exports.onLine = (logger, onlimo) => {
                                         apikey: process.env.APIKEY,
                                         apisecreet: process.env.APISECREET
                                     }
-                                    axios.post(baseURLKLHK, onlimo)
+                                    await axios.post(baseURLKLHK, onlimo)
                                     .then(res => {
                                         console.log(res.data);
                                     })
@@ -104,6 +110,11 @@ exports.offLine = (logger) => {
             if(err) throw err
         })
     })
+}
+
+exports.powerPump = (req) => {
+    //pump.writeSync(req)
+    watcher.status.pump = req
 }
 
 function tanggal (time) {
