@@ -97,11 +97,15 @@ exports.onLine = (logger, onlimo) => {
             })
 
         } catch (error) {
+            pump.writeSync(1)
+            watcher.status.pump = 1
             console.log('error push data');
         }
     })
     .catch(err => {
         console.log('err get token');
+        pump.writeSync(1)
+        watcher.status.pump = 1
     })
 }
 
@@ -112,6 +116,8 @@ exports.offLine = (logger) => {
         VALUES('${logger.ph}','${logger.do}','${logger.cond}','${logger.turb}','${logger.temp}','${logger.salt}','${logger.dept}','${logger.addedAt}')`
         db.run(sql, (err) => {
             if(err) throw err
+            pump.writeSync(1)
+            watcher.status.pump = 1
         })
     })
 }
