@@ -29,6 +29,9 @@ exports.onLine = (logger, onlimo) => {
                                         Authorization: `Bearer ${res.data.token}`
                                     }
                                 })
+                                .catch(err => {
+                                    console.log(err);
+                                })
                                 // TO API SERVER KLHK
                                 if(klhk == 'true') {
                                     let onlimo = {
@@ -49,9 +52,10 @@ exports.onLine = (logger, onlimo) => {
                                     .then(res => {
                                         console.log(res.data);
                                     })
+                                    .catch(err => {
+                                        console.log(err);
+                                    })
                                 }
-                                
-                                
                             }
                             // TO API SERVER DLH
                             await axios.post(baseURLDLH+'/logger/modbus', logger, {
