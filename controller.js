@@ -63,10 +63,15 @@ exports.onLine = (logger, onlimo) => {
                                     Authorization: `Bearer ${res.data.token}`
                                 }
                             })
-    
+                            .catch(err => {
+                                console.log(err);
+                            })
                             // TO API SERVER KLHK
                             if(klhk == 'true') {
                                 await axios.post(baseURLKLHK, onlimo)
+                                .catch(err => {
+                                    console.log(err);
+                                })
                             }
                            
     
