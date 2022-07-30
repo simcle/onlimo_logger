@@ -142,10 +142,10 @@ exports.powerPump = (req) => {
         pumpTimeout = setTimeout(() => {
             pump.writeSync(req)
             watcher.status.pump = req
-        }, 45000)
+        }, 55000)
         valveTimeoutOff = setTimeout(() => {
             valve.writeSync(1)
-        }, 50000)
+        }, 60000)
         valveTimeoutOn = setTimeout(() => {
             valve.writeSync(0)
         }, 90000)
