@@ -37,7 +37,7 @@ buffer[7] = 0x0A;
 
 
 const port = new SerialPort({
-    path: '/dev/tty.usbmodemFA131',
+    path: '/dev/ttyUSB0',
     baudRate: 9600,
     stopBits: 2
 }, function(err) {
