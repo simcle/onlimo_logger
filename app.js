@@ -43,6 +43,7 @@ const port = new SerialPort({
 }, function(err) {
     if(err) {
       watcher.status.transmitter = false 
+      console.log(err);
       return
     } 
 })
