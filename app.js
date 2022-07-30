@@ -74,7 +74,7 @@ setInterval (() => {
     port.write(buffer)
 }, 1000)
 
-const PORT = 5000 || process.env.PORT
+const PORT = 3000 || process.env.PORT
 app.listen(PORT, () => {
     console.log(`app is running on port ${PORT}`);
 })
