@@ -70,7 +70,7 @@ setInterval (() => {
     // watcher.modbus.turb = Math.floor(Math.random() * 150)
     // watcher.modbus.temp = Math.floor(Math.random() * 150)
     // watcher.modbus.salt = Math.floor(Math.random() * 150)
-    // watcher.modbus.dept = Math.floor(Math.random() * 100)
+    watcher.modbus.dept = Math.floor(Math.random() * 100)
     port.write(buffer)
 }, 1000)
 
