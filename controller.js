@@ -7,7 +7,9 @@ const klhk = process.env.KLHK;
 const watcher = require('./watcher');
 
 const pump = require('./gpio').pump;
+const valve = require('./gpio').valve;
 pump.writeSync(1)
+valve.writeSync(1)
 
 exports.onLine = (logger, onlimo) => {
     axios.post(baseURLDLH+'/auth/station', {
@@ -132,8 +134,26 @@ exports.offLine = (logger) => {
 }
 
 exports.powerPump = (req) => {
-    pump.writeSync(req)
-    watcher.status.pump = req
+    let pumpTimeout;
+    let valveTimeoutOff;
+    let valveTimeoutOn;
+    if(req === 0) {
+        pumpTimeout = setTimeout(() => {
+            pump.writeSync(req)
+            watcher.status.pump = req
+        }, 45000)
+        valveTimeoutOff = setTimeout(() => {
+            valve.writeSync(1)
+        }, 50000)
+        valveTimeoutOn = setTimeout(() => {
+            valve.writeSync(0)
+        }, 90000)
+    } else {
+        clearTimeout(pumpTimeout)
+        clearTimeout(valveTimeout)
+        pump.writeSync(req)
+        valve.writeSync(req)
+    }
 }
 
 function tanggal (time) {

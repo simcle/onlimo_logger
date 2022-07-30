@@ -53,7 +53,7 @@ port.pipe(parser)
 parser.on('data', (data) => {
     watcher.status.transmitter = true
     const sensor = data.split(',')
-    watcher.modbus.status.transmitter = true
+    watcher.status.transmitter = true
     watcher.modbus.ph = parseFloat(sensor[2]).toFixed(2)
     watcher.modbus.do = parseFloat(sensor[3]).toFixed(2)
     watcher.modbus.cond = parseFloat(sensor[4]).toFixed(2)
@@ -64,13 +64,13 @@ parser.on('data', (data) => {
 })
 
 setInterval (() => {
-    watcher.modbus.ph = Math.floor(Math.random() * 14)
-    watcher.modbus.do = Math.floor(Math.random() * 300)
-    watcher.modbus.cond = Math.floor(Math.random() * 300)
-    watcher.modbus.turb = Math.floor(Math.random() * 150)
-    watcher.modbus.temp = Math.floor(Math.random() * 150)
-    watcher.modbus.salt = Math.floor(Math.random() * 150)
-    watcher.modbus.dept = Math.floor(Math.random() * 100)
+    // watcher.modbus.ph = Math.floor(Math.random() * 14)
+    // watcher.modbus.do = Math.floor(Math.random() * 300)
+    // watcher.modbus.cond = Math.floor(Math.random() * 300)
+    // watcher.modbus.turb = Math.floor(Math.random() * 150)
+    // watcher.modbus.temp = Math.floor(Math.random() * 150)
+    // watcher.modbus.salt = Math.floor(Math.random() * 150)
+    // watcher.modbus.dept = Math.floor(Math.random() * 100)
     port.write(buffer)
 }, 1000)
 
