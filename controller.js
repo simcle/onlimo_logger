@@ -137,7 +137,8 @@ exports.powerPump = (req) => {
     let pumpTimeout;
     let valveTimeoutOff;
     let valveTimeoutOn;
-    if(req === 0) {
+    if(req == 0) {
+        valve.writeSync(req)
         pumpTimeout = setTimeout(() => {
             pump.writeSync(req)
             watcher.status.pump = req
@@ -155,7 +156,7 @@ exports.powerPump = (req) => {
         pump.writeSync(req)
         valve.writeSync(req)
     }
-    valve.writeSync(req)
+    
 }
 
 function tanggal (time) {
