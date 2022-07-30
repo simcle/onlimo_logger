@@ -150,7 +150,8 @@ exports.powerPump = (req) => {
         }, 90000)
     } else {
         clearTimeout(pumpTimeout)
-        clearTimeout(valveTimeout)
+        clearTimeout(valveTimeoutOn)
+        clearTimeout(valveTimeoutOff)
         pump.writeSync(req)
         valve.writeSync(req)
     }
