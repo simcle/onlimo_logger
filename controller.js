@@ -155,6 +155,7 @@ exports.powerPump = (req) => {
         pump.writeSync(req)
         valve.writeSync(req)
     }
+    valve.writeSync(req)
 }
 
 function tanggal (time) {
