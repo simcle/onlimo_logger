@@ -137,8 +137,8 @@ exports.powerPump = (req) => {
     console.log(req)
     valve.writeSync(req)
     const pumpTimeout = setTimeout(() => {
-        pump.writeSync(req)
-        watcher.status.pump = req
+        pump.writeSync(0)
+        watcher.status.pump = 0
     }, 60000)
     const valveTimeoutOff = setTimeout(() => {
         valve.writeSync(1)
