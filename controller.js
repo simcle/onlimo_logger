@@ -136,22 +136,29 @@ exports.offLine = (logger) => {
 exports.powerPump = (req) => {
     console.log(req)
     valve.writeSync(req)
-    const pumpTimeout = setTimeout(() => {
+    const pumpTimeout = setTimeout(pumpOn, 60000)
+    const valveTimeoutOff = setTimeout(valveOff, 75000)
+    const valveTimeoutOn = setTimeout(valveOn, 100000)
+
+    function pumpOn () {
         pump.writeSync(0)
         watcher.status.pump = 0
-    }, 60000)
-    const valveTimeoutOff = setTimeout(() => {
+    }
+
+    function valveOff () {
         valve.writeSync(1)
-    }, 75000)
-    const valveTimeoutOn = setTimeout(() => {
+    }
+
+    function valveOn () {
         valve.writeSync(0)
-    }, 100000)
+    }
 
     if(req == 1) {
         clearTimeout(pumpTimeout)
         clearTimeout(valveTimeoutOn)
         clearTimeout(valveTimeoutOff)
         pump.writeSync(req)
+        console.log('clear all');
         watcher.status.pump = req
     } 
     
