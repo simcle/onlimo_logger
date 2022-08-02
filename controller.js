@@ -140,19 +140,6 @@ exports.powerPump = (req) => {
     const valveTimeoutOff = setTimeout(valveOff, 75000)
     const valveTimeoutOn = setTimeout(valveOn, 100000)
 
-    function pumpOn () {
-        pump.writeSync(0)
-        watcher.status.pump = 0
-    }
-
-    function valveOff () {
-        valve.writeSync(1)
-    }
-
-    function valveOn () {
-        valve.writeSync(0)
-    }
-
     if(req == 1) {
         clearTimeout(pumpTimeout)
         clearTimeout(valveTimeoutOn)
@@ -162,6 +149,19 @@ exports.powerPump = (req) => {
         watcher.status.pump = req
     } 
     
+}
+
+function pumpOn () {
+    pump.writeSync(0)
+    watcher.status.pump = 0
+}
+
+function valveOff () {
+    valve.writeSync(1)
+}
+
+function valveOn () {
+    valve.writeSync(0)
 }
 
 function tanggal (time) {
