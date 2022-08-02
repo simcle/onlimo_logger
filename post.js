@@ -54,17 +54,14 @@ setInterval(() => {
         apisecreet: process.env.APISECREET
     }
     // send data to controller in hour
-    if(mm == 58) {
+    if(mm == 57) {
         valve.writeSync(0)
     }
-    if(mm == 59) {
+    if(mm == 58) {
         pump.writeSync(0)
         watcher.status.pump = 0
     }
-    if(mm == 59 && ss == 10) {
-        valve.writeSync(1)
-    }
-    if(mm == 59 && ss == 55) {
+    if(mm == 59 && ss == 50) {
         pump.writeSync(1)
         valve.writeSync(1)
     }
