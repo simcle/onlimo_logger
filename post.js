@@ -61,12 +61,12 @@ setInterval(() => {
         pump.writeSync(0)
         watcher.status.pump = 0
     }
-    if(mm == 59 && ss == 05) {
+    if(mm == 59 && ss == 10) {
         valve.writeSync(1)
     }
     if(mm == 59 && ss == 55) {
         pump.writeSync(1)
-        valve.writeSync(0)
+        valve.writeSync(1)
     }
     if (mm == 00 && ss == 00) {
         isOnline()
