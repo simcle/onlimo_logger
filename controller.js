@@ -11,6 +11,10 @@ const valve = require('./gpio').valve;
 pump.writeSync(1)
 valve.writeSync(1)
 
+let pumpTimeout;
+let valveTimeoutOff;
+let valveTimeoutOn;
+
 exports.onLine = (logger, onlimo) => {
     axios.post(baseURLDLH+'/auth/station', {
         stationId: process.env.STATION_ID
@@ -135,10 +139,12 @@ exports.offLine = (logger) => {
 
 exports.powerPump = (req) => {
     console.log(req)
+    if(req == 0) {
+        pumpTimeout = setTimeout(pumpOn, 60000)
+        valveTimeoutOff = setTimeout(valveOff, 75000)
+        valveTimeoutOn = setTimeout(valveOn, 100000)
+    }
     valve.writeSync(req)
-    const pumpTimeout = setTimeout(pumpOn, 60000)
-    const valveTimeoutOff = setTimeout(valveOff, 75000)
-    const valveTimeoutOn = setTimeout(valveOn, 100000)
 
     if(req == 1) {
         clearTimeout(pumpTimeout)
