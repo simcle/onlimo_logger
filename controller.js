@@ -76,6 +76,7 @@ exports.onLine = (logger, onlimo) => {
                                 clearTimeout(pumpTimeout)
                                 clearTimeout(valveTimeoutOn)
                                 clearTimeout(valveTimeoutOff)
+                                console.log('data terkirim');
                             })
                             .catch(err => {
                                 console.log(err);
