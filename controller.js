@@ -69,6 +69,14 @@ exports.onLine = (logger, onlimo) => {
                                     Authorization: `Bearer ${res.data.token}`
                                 }
                             })
+                            .then(() => {
+                                pump.writeSync(1)
+                                watcher.status.pump = 1
+                                valve.writeSync(1)
+                                clearTimeout(pumpTimeout)
+                                clearTimeout(valveTimeoutOn)
+                                clearTimeout(valveTimeoutOff)
+                            })
                             .catch(err => {
                                 console.log(err);
                             })
@@ -98,6 +106,10 @@ exports.onLine = (logger, onlimo) => {
                         .then(() => {
                             pump.writeSync(1)
                             watcher.status.pump = 1
+                            valve.writeSync(1)
+                            clearTimeout(pumpTimeout)
+                            clearTimeout(valveTimeoutOn)
+                            clearTimeout(valveTimeoutOff)
                         })
 
                         // TO API SERVER KLHK
@@ -138,20 +150,17 @@ exports.offLine = (logger) => {
 }
 
 exports.powerPump = (req) => {
-    console.log(req)
     if(req == 0) {
         pumpTimeout = setTimeout(pumpOn, 60000)
         valveTimeoutOff = setTimeout(valveOff, 75000)
         valveTimeoutOn = setTimeout(valveOn, 100000)
     }
     valve.writeSync(req)
-
     if(req == 1) {
         clearTimeout(pumpTimeout)
         clearTimeout(valveTimeoutOn)
         clearTimeout(valveTimeoutOff)
         pump.writeSync(req)
-        console.log('clear all');
         watcher.status.pump = req
     } 
     
